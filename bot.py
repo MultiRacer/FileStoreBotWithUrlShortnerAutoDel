@@ -74,7 +74,7 @@ async def start(bot: Client, cmd: Message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Updates Channel", url="https://t.me/VJ_Botz")
+                        InlineKeyboardButton("Updates Channel", url="https://t.me/SMS_Update_Channel")
                     ],
                     [
                         InlineKeyboardButton("About Bot", callback_data="aboutbot"),
@@ -82,8 +82,8 @@ async def start(bot: Client, cmd: Message):
                         InlineKeyboardButton("Close 🚪", callback_data="closeMessage")
                     ],
                     [
-                        InlineKeyboardButton("Support Group", url="https://t.me/VJ_Bot_Disscussion"),
-                        InlineKeyboardButton("YouTube Channel", url="https://youtube.com/@Tech_VJ")
+                        InlineKeyboardButton("Support Channel", url="https://t.me/SMS_Support_Channel"),
+                        InlineKeyboardButton("Movies Channel", url="https://t.me/+Cj_eZdj2ndswNjY1")
                     ]
                 ]
             )
