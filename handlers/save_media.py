@@ -12,22 +12,6 @@ from pyrogram.types import (
 from pyrogram.errors import FloodWait
 from handlers.helpers import str_to_b64
 
-def humanbytes(size):
-    # https://stackoverflow.com/a/49361727/4723940
-    # 2**10 = 1024
-    if not size:
-        return ""
-    power = 2**10
-    n = 0
-    Dic_powerN = {0: ' ', 1: 'K', 2: 'M', 3: 'G', 4: 'T'}
-    while size > power:
-        size /= power
-        n += 1
-    return str(round(size, 2)) + "" + Dic_powerN[n] + 'B'
-   # formatted_size = round(size, 2) if n != 2 else int(size)
-    # return f"{formatted_size:.2f}" + Dic_powerN[n] + 'B' if n != 2 else f"{formatted_size}" + Dic_powerN[n] + 'B'
-   
-
 def generate_random_alphanumeric():
     """Generate a random 8-letter alphanumeric string."""
     characters = string.ascii_letters + string.digits
@@ -80,7 +64,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
                 InlineKeyboardButton("Delete Batch", callback_data="closeMessage")
             ]])
         )
-        share_link = f"https://telegram.me/{Config.BOT_USERNAME}?start=Tamilan_{str_to_b64(str(SaveMessage.id))}"
+        share_link = f"https://telegram.me/{Config.BOT_USERNAME}?start=VJBotz_{str_to_b64(str(SaveMessage.id))}"
         short_link = get_short(share_link)
         await editable.edit(
             f"**Batch Files Stored in my Database!**\n\nHere is the Permanent Link of your files: <code>{short_link}</code> \n\n"
@@ -116,24 +100,14 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
     try:
         forwarded_msg = await message.forward(Config.DB_CHANNEL)
         file_er_id = str(forwarded_msg.id)
-
-        # get media type
-        media = message.document or message.video or message.audio or message.photo
-        
-        # get file name
-        file_name = media.file_name if media.file_name else ""
-        
-        # get file size
-        file_size = humanbytes(media.file_size)
-        
         await forwarded_msg.reply_text(
             f"#PRIVATE_FILE:\n\n[{message.from_user.first_name}](tg://user?id={message.from_user.id}) Got File Link!",
             disable_web_page_preview=True)
-        share_link = f"https://telegram.me/{Config.BOT_USERNAME}?start=Tamilan_{str_to_b64(file_er_id)}"
+        share_link = f"https://telegram.me/{Config.BOT_USERNAME}?start=VJBotz_{str_to_b64(file_er_id)}"
         short_link = get_short(share_link)
         await editable.edit(
             "**Your File Stored in my Database!**\n\n"
-            f"{file_name} - {file_size} \n\n**Short Link - ** <code>{file_size} - {short_link}</code> \n\n**Original Link - ** <code>{share_link}</code> \n\n"
+            f"Here is the Permanent Link of your file: <code>{short_link}</code> \n\n"
             "Just Click the link to get your file!",
             reply_markup=InlineKeyboardMarkup(
                [[InlineKeyboardButton("Original Link", url=share_link),
